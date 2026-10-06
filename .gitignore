@@ -1,0 +1,7 @@
+data/raw/
+*.fastq
+*.fastq.gz
+*.sra
+*.sra.tmp
+*.sra.lock
+.venv/
