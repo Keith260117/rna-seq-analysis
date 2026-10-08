@@ -4,4 +4,18 @@ data/raw/
 *.sra
 *.sra.tmp
 *.sra.lock
+
 .venv/
+
+reference/
+
+results/salmon/
+
+# Large expression matrices
+results/expression/gene_counts.csv
+results/expression/gene_abundance.csv
+results/expression/gene_effective_lengths.csv
+results/expression/tx2gene.csv
+
+# Temporary/large analysis files
+results/volcano/DESeq2_volcano_data.csv

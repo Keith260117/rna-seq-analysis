@@ -1,0 +1,7 @@
+"PC1","PC2","group","condition","name","sample_id"
+-0.762293963401227,1.48514906703723,"infected","infected","sample1","sample1"
+0.228250092248303,0.942364111550749,"infected","infected","sample2","sample2"
+0.0806973640658601,0.38708452631671,"infected","infected","sample3","sample3"
+3.61311943258902,-1.12635394763524,"control","control","sample4","sample4"
+-1.05479329054165,1.33473586658103,"control","control","sample5","sample5"
+-2.10497963496032,-3.02297962385047,"control","control","sample6","sample6"

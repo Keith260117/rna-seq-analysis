@@ -1,0 +1,7 @@
+"","sample_id","sra_accession","condition","timepoint"
+"sample1","sample1","SRR11884716","infected","6h"
+"sample2","sample2","SRR11884717","infected","6h"
+"sample3","sample3","SRR11884718","infected","6h"
+"sample4","sample4","SRR11884719","control","6h"
+"sample5","sample5","SRR11884720","control","6h"
+"sample6","sample6","SRR11884721","control","6h"

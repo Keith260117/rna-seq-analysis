@@ -1,0 +1,8 @@
+metric,value
+input_file,data/raw/SRR11884719_1.fastq
+number_of_reads,32684022
+total_bases,1666885122
+average_read_length,51.0
+average_phred_quality,38.1
+bases_below_q20_percent,1.75
+gc_content_percent,50.33
