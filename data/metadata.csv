@@ -1,8 +1,7 @@
-
 sample_id,sra_accession,geo_accession,condition,timepoint
 sample1,SRR11884716,GSM4579971,infected,6h
 sample2,SRR11884717,GSM4579972,infected,6h
 sample3,SRR11884718,GSM4579973,infected,6h
 sample4,SRR11884719,GSM4579974,control,6h
 sample5,SRR11884720,GSM4579975,control,6h
-sample6,SRR11884721,GSM4579976,control,6hs
+sample6,SRR11884721,GSM4579976,control,6h

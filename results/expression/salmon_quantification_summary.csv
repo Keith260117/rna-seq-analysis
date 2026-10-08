@@ -1,0 +1,7 @@
+sample,sample_id,geo_accession,condition,timepoint,transcripts,processed_fragments,mapped_fragments,mapping_rate_percent,library_type,salmon_version,quant_errors
+SRR11884716,sample1,GSM4579971,infected,6h,517038,29389141,27600411,93.91,ISR,2.8.0,0
+SRR11884717,sample2,GSM4579972,infected,6h,517038,29396999,27728630,94.32,ISR,2.8.0,0
+SRR11884718,sample3,GSM4579973,infected,6h,517038,36338558,34139169,93.95,ISR,2.8.0,0
+SRR11884719,sample4,GSM4579974,control,6h,517038,32684022,31263544,95.65,ISR,2.8.0,0
+SRR11884720,sample5,GSM4579975,control,6h,517038,29086825,27981250,96.2,ISR,2.8.0,0
+SRR11884721,sample6,GSM4579976,control,6h,517038,24515458,23411158,95.5,ISR,2.8.0,0
