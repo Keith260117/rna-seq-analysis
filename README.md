@@ -327,16 +327,119 @@ rna-seq-analysis/
 
 ## Reproducibility
 
-The project separates large raw/reference data from analysis code and lightweight results.
+This repository contains the analysis scripts, sample metadata, and selected results. Raw sequencing files, the reference transcript FASTA, the Salmon index, and Salmon quantification directories are excluded from Git because of their size. The complete workflow therefore requires downloading the input data and preparing the reference locally.
 
-Raw sequencing files, reference files, Salmon indexes, and Salmon quantification directories are excluded through `.gitignore`.
+### 1. Sample metadata
 
-The analysis scripts are retained in the repository so that the workflow can be inspected and reproduced.
+The six SRA accessions and their experimental conditions are listed in `data/metadata.csv`. The analysis compares three SARS-CoV-2-infected samples with three control samples at 6 hours.
+### 2. Obtain the sequencing data
+#Install the [NCBI SRA Toolkit](https://github.com/ncbi/sra-tools) and create the raw-data directory:
 
-The six SRA accessions required to reconstruct the dataset are documented in:
+```bash
+mkdir -p data/raw
+mkdir -p data/sra
+```
 
-`data/metadata.csv`
+Download each SRA accession into the project directory:
 
+```bash
+for sample in SRR11884716 SRR11884717 SRR11884718 SRR11884719 SRR11884720 SRR11884721; do
+    prefetch "$sample" --output-directory data/sra
+done
+```
+
+Convert each downloaded accession to paired FASTQ files:
+
+```bash
+for sample in SRR11884716 SRR11884717 SRR11884718 SRR11884719 SRR11884720 SRR11884721; do
+    fasterq-dump "data/sra/$sample/$sample.sra" \
+        --split-files \
+        --outdir data/raw
+done
+```
+
+The conversion should create two files per sample, ending in `_1.fastq` and `_2.fastq`. These filenames are expected by `scripts/run_salmon.py`.
+
+**Storage note:** The six samples occupied approximately 83 GB after FASTQ conversion in the original analysis. Allow additional disk space for the downloaded SRA files and intermediate processing.
+
+### 3. Prepare the reference and Salmon index
+
+Obtain the GENCODE v49 human transcript FASTA and save it as:
+
+`reference/gencode.v49.transcripts.fa`
+
+Build the Salmon index using the same Salmon version used for this analysis, where possible:
+
+```bash
+mkdir -p reference/salmon_index
+salmon index \
+    -t reference/gencode.v49.transcripts.fa \
+    -i reference/salmon_index
+```
+
+The project uses GENCODE v49 on GRCh38. This differs from the reference annotation used in the original study, so the analysis is not intended as an exact reproduction of the original pipeline.
+
+### 4. Run quality control and transcript quantification
+
+From the project root, run:
+
+```bash
+python scripts/run_qc.py
+python scripts/run_salmon.py
+```
+
+The QC workflow generates basic FASTQ quality summaries and plots. Salmon quantification is written to `results/salmon/`. The quantification script skips samples that already have a `quant.sf` file.
+
+### 5. Run downstream analysis
+
+Run the following commands from the project root, after Salmon quantification has completed and the required R packages are installed.
+
+First, import transcript-level quantification and perform gene-level differential-expression analysis:
+
+```bash
+Rscript scripts/tximport_analysis.R
+```
+
+Then generate the PCA, volcano plot, and heatmap:
+
+```bash
+Rscript scripts/pca_analysis.R
+Rscript scripts/volcano_plot.R
+Rscript scripts/heatmap_analysis.R
+```
+
+Next, run ranked Hallmark gene-set enrichment using the DESeq2 results:
+
+```bash
+Rscript scripts/ranked_pathway_analysis.R
+```
+
+Finally, generate the pathway figure and interpretation table:
+
+```bash
+Rscript scripts/plot_gsea.R
+python scripts/create_gsea_interpretation.py
+```
+
+The scripts use paths relative to the project root and depend on outputs created by earlier steps. If a script reports a missing input file, confirm that the preceding step completed successfully and produced the expected output before continuing.
+
+The main outputs include:
+
+* `results/expression/DESeq2_infected_vs_control.csv`
+* `results/pca/PCA_plot.png`
+* `results/volcano/volcano_plot.png`
+* `results/heatmap/significant_genes_heatmap.png`
+* `results/pathway_analysis/hallmark_gsea_results.csv`
+* `results/pathway_analysis/hallmark_gsea_plot.png`
+* `results/pathway_analysis/hallmark_gsea_interpretation.csv`
+
+### 6. Reproducibility considerations
+
+* Run commands from the project root unless a script specifies otherwise.
+* Confirm that the expected input files and reference index exist before running downstream steps.
+* Large input files and intermediate outputs are intentionally excluded from Git.
+* Results may differ slightly with changes in software versions, transcript annotations, or package dependencies.
+* The custom QC workflow provides basic metrics and does not replace comprehensive FastQC/MultiQC analysis.
 ## Limitations
 
 Several limitations should be considered when interpreting these results:
