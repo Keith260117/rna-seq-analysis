@@ -381,7 +381,7 @@ To investigate biological processes associated with SARS-CoV-2 infection, I perf
 The analysis used the Wald statistic to retain information about both the direction and strength of differential expression across the ranked gene list. Positive NES values indicate enrichment toward the infected condition; negative NES values indicate enrichment toward the control condition.
 
 ### Results
-
+![Hallmark GSEA plot showing normalized enrichment scores for significant pathways](results/pathway_analysis/hallmark_gsea_plot.png)
 Eighteen Hallmark pathways met the adjusted p-value threshold of 0.05.
 
 The strongest enrichment patterns included:
