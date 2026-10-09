@@ -269,46 +269,61 @@ Two different Ensembl gene identifiers map to **APOM** in the selected annotatio
 
 ## Repository structure
 
+The tree below summarizes the main project files and analysis outputs. Large raw sequencing files, the reference FASTA, and the Salmon index are stored locally and are not committed to GitHub.
+
 ```text
 rna-seq-analysis/
-│
 ├── data/
 │   └── metadata.csv
-│
 ├── reference/
-│   └── Salmon reference files
-│
-├── results/
-│   ├── expression/
-│   │   ├── DESeq2_infected_vs_control.csv
-│   │   ├── DESeq2_significant_genes_with_symbols.csv
-│   │   └── sample_metadata.csv
-│   │
-│   ├── heatmap/
-│   │   ├── significant_genes_heatmap.png
-│   │   └── significant_genes_zscore.csv
-│   │
-│   ├── pca/
-│   │   ├── PCA_coordinates.csv
-│   │   └── PCA_plot.png
-│   │
-│   ├── qc/
-│   │   ├── QC summary files
-│   │   └── quality-by-position plots
-│   │
-│   └── volcano/
-│       └── volcano_plot.png
-│
-└── scripts/
-    ├── run_qc.py
-    ├── plot_qc_from_csv.py
-    ├── run_salmon.py
-    ├── tximport_analysis.R
-    ├── pca_analysis.R
-    ├── volcano_plot.R
-    ├── heatmap_analysis.R
-    └── map_gene_symbols.py
+│   └── GENCODE v49 transcript FASTA and Salmon index (local; not tracked)
+├── scripts/
+│   ├── create_gsea_interpretation.py
+│   ├── create_sample_qc_table.py
+│   ├── fastq_quality.py
+│   ├── heatmap_analysis.R
+│   ├── map_gene_symbols.py
+│   ├── pca_analysis.R
+│   ├── plot_gsea.R
+│   ├── plot_qc_from_csv.py
+│   ├── ranked_pathway_analysis.R
+│   ├── run_qc.py
+│   ├── run_salmon.py
+│   ├── summarize_qc.py
+│   ├── summarize_salmon.py
+│   ├── tximport_analysis.R
+│   └── volcano_plot.R
+└── results/
+    ├── expression/
+    │   ├── DESeq2_infected_vs_control.csv
+    │   ├── DESeq2_significant_genes_with_symbols.csv
+    │   ├── gene_abundance.csv
+    │   ├── gene_counts.csv
+    │   ├── gene_effective_lengths.csv
+    │   ├── sample_metadata.csv
+    │   └── salmon_quantification_summary.csv
+    ├── heatmap/
+    │   ├── significant_genes_heatmap.png
+    │   └── significant_genes_zscore.csv
+    ├── pathway_analysis/
+    │   ├── hallmark_gsea_interpretation.csv
+    │   ├── hallmark_gsea_plot.png
+    │   ├── hallmark_gsea_results.csv
+    │   ├── hallmark_gsea_significant.csv
+    │   └── ranked_gene_list.csv
+    ├── pca/
+    │   ├── PCA_coordinates.csv
+    │   └── PCA_plot.png
+    ├── qc/
+    │   ├── README.md
+    │   ├── all_samples_qc_summary.csv
+    │   └── per-sample quality summaries and plots
+    └── volcano/
+        ├── DESeq2_volcano_data.csv
+        └── volcano_plot.png
 ```
+
+**Note:** This is a summary of the key files, not a complete listing of every QC output. Raw FASTQ files and large reference/index files must be obtained or regenerated locally before the full workflow can be rerun.
 
 ## Reproducibility
 
