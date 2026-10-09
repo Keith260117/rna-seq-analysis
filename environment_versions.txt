@@ -1,0 +1,43 @@
+RNA-seq Differential Expression Analysis of SARS-CoV-2-Infected Calu-3 Cells
+Software environment record
+
+Python environment
+Python: 3.9.6
+pip: 26.0.1
+pandas: 2.3.3
+NumPy: 2.0.2
+SciPy: 1.13.1
+Matplotlib: 3.9.4
+
+Transcript quantification
+Salmon: 2.8.0
+
+R environment
+R: 4.4.2
+
+R packages
+tximport: 1.34.0
+DESeq2: 1.46.0
+ggplot2: 4.0.2
+pheatmap: 1.0.13
+fgsea: 1.32.4
+msigdbr: 26.1.0
+
+Reference transcriptome
+GENCODE human transcriptome release 49
+Genome assembly: GRCh38
+
+Pathway analysis
+Gene-set collection: MSigDB Hallmark
+Species: Homo sapiens
+Ranking statistic: DESeq2 Wald statistic
+Significance threshold: Benjamini-Hochberg adjusted p-value < 0.05
+
+Dataset
+GEO accession: GSE151513
+Comparison: SARS-CoV-2-infected versus control Calu-3 cells
+Time point: 6 hours post-infection
+Samples: 3 infected and 3 control
+
+Note
+This file records the software versions observed in the local analysis environment. It is a reproducibility aid, not a complete lockfile of every system dependency.
