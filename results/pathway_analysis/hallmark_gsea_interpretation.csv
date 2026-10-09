@@ -1,0 +1,19 @@
+pathway,pathway_name,direction,NES,pval,padj,significance,biological_interpretation
+HALLMARK_OXIDATIVE_PHOSPHORYLATION,Oxidative Phosphorylation,Enriched in control,-2.66609247286888,1.50433427250397e-19,7.521671362519859e-18,Highly significant,Mitochondrial energy production and respiratory metabolism.
+HALLMARK_MYC_TARGETS_V1,Myc Targets V1,Enriched in control,-2.52240603349245,3.5497835208193005e-16,8.87445880204824e-15,Highly significant,"MYC-associated transcription, growth, and proliferation."
+HALLMARK_EPITHELIAL_MESENCHYMAL_TRANSITION,Epithelial Mesenchymal Transition,Enriched in control,-1.75005955885504,7.10744478021104e-05,0.0011845741300351,Significant,Cellular programs associated with epithelial state and cell adhesion.
+HALLMARK_ADIPOGENESIS,Adipogenesis,Enriched in control,-1.64641042748573,0.0003275366553103,0.0033595203422576,Significant,Lipid storage and metabolic regulation-associated genes.
+HALLMARK_E2F_TARGETS,E2F Targets,Enriched in control,-1.60398791871871,0.0003359520342257,0.0033595203422576,Significant,Cell-cycle progression and DNA replication-associated genes.
+HALLMARK_PROTEIN_SECRETION,Protein Secretion,Enriched in control,-1.76627975867756,0.0004787295045862,0.0039894125382185,Significant,"Protein processing, trafficking, and secretion."
+HALLMARK_GLYCOLYSIS,Glycolysis,Enriched in control,-1.55345797156837,0.000813412671999,0.0058100905142788,Significant,Glucose utilization and glycolytic energy metabolism.
+HALLMARK_FATTY_ACID_METABOLISM,Fatty Acid Metabolism,Enriched in control,-1.61981352696433,0.0012143890957223,0.0075899318482645,Significant,Fatty-acid utilization and lipid metabolism.
+HALLMARK_TNFA_SIGNALING_VIA_NFKB,Tnfa Signaling Via Nfkb,Enriched in infected,1.54120283601205,0.0015579089220028,0.0086550495666822,Significant,Inflammatory signaling and NF-kB-associated transcription.
+HALLMARK_COMPLEMENT,Complement,Enriched in control,-1.56247346235631,0.0020187474499774,0.0091761247726247,Significant,Innate immune and complement-associated processes.
+HALLMARK_MTORC1_SIGNALING,Mtorc1 Signaling,Enriched in control,-1.50409701616815,0.0019413410513649,0.0091761247726247,Significant,"Nutrient sensing, protein synthesis, and metabolic regulation."
+HALLMARK_COAGULATION,Coagulation,Enriched in control,-1.6000070408462,0.0043054842055284,0.016559554636648,Significant,Coagulation and hemostasis-associated genes.
+HALLMARK_XENOBIOTIC_METABOLISM,Xenobiotic Metabolism,Enriched in control,-1.49752441420612,0.0039799637403987,0.016559554636648,Significant,Metabolism of foreign compounds and detoxification.
+HALLMARK_HEDGEHOG_SIGNALING,Hedgehog Signaling,Enriched in infected,1.72656789411715,0.0067238517125694,0.0224128390418981,Significant,Cell signaling involved in development and differentiation.
+HALLMARK_KRAS_SIGNALING_UP,Kras Signaling Up,Enriched in control,-1.45235455437795,0.006474376463807,0.0224128390418981,Significant,Genes associated with KRAS-related signaling states.
+HALLMARK_UNFOLDED_PROTEIN_RESPONSE,Unfolded Protein Response,Enriched in control,-1.44965062130166,0.0114713527432039,0.0358479773225121,Significant,Cellular responses to protein-folding and ER stress.
+HALLMARK_REACTIVE_OXYGEN_SPECIES_PATHWAY,Reactive Oxygen Species Pathway,Enriched in control,-1.60372369888442,0.0139155959152478,0.0401124176221762,Significant,Cellular responses associated with oxidative stress.
+HALLMARK_UV_RESPONSE_DN,Uv Response Dn,Enriched in infected,1.39935372667139,0.0144404703439834,0.0401124176221762,Significant,Genes associated with a cellular stress-response signature.

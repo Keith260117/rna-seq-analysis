@@ -362,3 +362,67 @@ The primary purpose of this project was to develop practical experience with an 
 **raw sequencing data → quality control → transcript quantification → gene-level expression → statistical testing → visualization → biological interpretation**
 
 The project emphasizes reproducibility, explicit documentation of analytical decisions, and cautious interpretation of results rather than treating statistical significance alone as evidence of biological importance.
+## Ranked Pathway Enrichment Analysis
+
+### Objective
+
+To investigate biological processes associated with SARS-CoV-2 infection, I performed preranked Gene Set Enrichment Analysis (GSEA) using the complete set of gene-level differential-expression statistics rather than restricting the analysis to individually significant genes.
+
+### Method
+
+* **Input:** DESeq2 differential-expression results for 18,609 genes.
+* **Ranking metric:** DESeq2 Wald test statistic, ranked from highest to lowest.
+* **Gene sets:** MSigDB Hallmark collection for *Homo sapiens*, accessed using `msigdbr`.
+* **Enrichment analysis:** `fgsea`, with a minimum gene-set size of 15 and a maximum of 500.
+* **Multiple testing:** Benjamini–Hochberg-adjusted p-values.
+* **Significance threshold:** Adjusted p-value < 0.05.
+* **Visualization:** Normalized enrichment scores (NES) plotted for significant pathways.
+
+The analysis used the Wald statistic to retain information about both the direction and strength of differential expression across the ranked gene list. Positive NES values indicate enrichment toward the infected condition; negative NES values indicate enrichment toward the control condition.
+
+### Results
+
+Eighteen Hallmark pathways met the adjusted p-value threshold of 0.05.
+
+The strongest enrichment patterns included:
+
+| Pathway                         |    NES | Adjusted p-value | Direction |
+| ------------------------------- | -----: | ---------------: | --------- |
+| Oxidative phosphorylation       | -2.666 |     7.52 × 10⁻¹⁸ | Control   |
+| MYC targets V1                  | -2.522 |     8.87 × 10⁻¹⁵ | Control   |
+| TNFα signaling via NF-κB        |  1.541 |      8.66 × 10⁻³ | Infected  |
+| Hedgehog signaling              |  1.727 |      2.24 × 10⁻² | Infected  |
+| Glycolysis                      | -1.553 |      5.81 × 10⁻³ | Control   |
+| Fatty-acid metabolism           | -1.620 |      7.59 × 10⁻³ | Control   |
+| Unfolded protein response       | -1.450 |      3.58 × 10⁻² | Control   |
+| Reactive oxygen species pathway | -1.604 |      4.01 × 10⁻² | Control   |
+
+*Negative NES indicates enrichment toward the control side of the ranked gene list, not necessarily that every gene in the pathway is downregulated.*
+
+### Interpretation
+
+The results suggest several patterns worth investigating further:
+
+1. **Inflammatory signaling:** TNFα signaling via NF-κB was enriched toward the infected condition, consistent with a potential difference in inflammatory-response-associated transcription.
+2. **Cellular energy metabolism:** Oxidative phosphorylation, glycolysis, and fatty-acid metabolism were enriched toward the control condition, suggesting differences in metabolic gene-expression programs.
+3. **Cellular growth and stress responses:** MYC targets, the unfolded protein response, and the reactive oxygen species pathway were also enriched toward the control condition.
+4. **Additional signaling differences:** Hedgehog signaling was enriched toward the infected condition.
+
+These findings are exploratory associations from this dataset. They do not establish that infection directly caused the observed pathway patterns or identify the underlying mechanisms.
+
+### Reproducibility and outputs
+
+The analysis scripts and selected outputs are available in this repository:
+
+* `scripts/ranked_pathway_analysis.R` — performs preranked Hallmark GSEA.
+* `scripts/plot_gsea.R` — generates the pathway enrichment plot.
+* `scripts/create_gsea_interpretation.py` — generates a readable pathway interpretation table.
+* `results/pathway_analysis/hallmark_gsea_plot.png` — visualization of significant pathways.
+* `results/pathway_analysis/hallmark_gsea_significant.csv` — significant pathway results.
+* `results/pathway_analysis/hallmark_gsea_interpretation.csv` — pathway directions, statistics, and descriptive interpretations.
+
+### Limitations
+
+The comparison includes three infected and three control samples at six hours post-infection. The small sample size limits statistical power and generalizability. Principal component analysis did not show clear separation of all samples by condition, so the pathway findings should be interpreted cautiously. Independent validation and additional biological replicates would strengthen the conclusions.
+
+The Hallmark gene sets are broad biological signatures. Enrichment indicates that genes from a set are disproportionately represented toward one end of the ranked list; it does not mean every gene in that set changes in the same direction or that the entire pathway is activated or inhibited.
