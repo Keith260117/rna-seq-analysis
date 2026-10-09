@@ -119,12 +119,6 @@ R was used for:
 * Heatmap generation
 * Volcano plot generation
 
-### Transcript quantification
-
-* Salmon 2.8.0
-
-Salmon was used for transcript-level quantification from paired-end FASTQ files.
-
 ## Quality control
 
 A custom Python FASTQ parser was developed to calculate:
@@ -157,13 +151,13 @@ In particular, these metrics alone cannot establish the absence of adapter conta
 
 ## Transcript quantification
 
-Transcript abundance was estimated using **Salmon 2.8.0** with the GENCODE v49 human transcript reference.
+Transcript abundance was estimated using **Salmon 2.8.0** with paired-end FASTQ files and the GENCODE v49 human transcript reference.
 
-The resulting `quant.sf` files were imported into R using **tximport** and summarized to gene-level expression.
+The resulting `quant.sf` files were imported into R using **tximport** and summarized to gene-level expression estimates for downstream differential-expression analysis with DESeq2.
 
-The GENCODE reference used in this project is based on **GRCh38** and differs from the reference annotation used in the original study. This reference choice is documented explicitly to improve reproducibility.
+The GENCODE v49 reference used in this project is based on **GRCh38**. It differs from the reference annotation used in the original study, so the results should not be considered an exact reproduction of the original analysis.
 
-Large reference files and Salmon output directories are excluded from Git because they are too large for practical repository storage.
+Large reference files, the Salmon index, and Salmon quantification directories are excluded from Git to keep the repository manageable.
 
 ## Differential expression analysis
 
@@ -332,28 +326,29 @@ The six SRA accessions required to reconstruct the dataset are documented in:
 
 Several limitations should be considered when interpreting these results:
 
-1. Only six samples were analyzed, with three biological replicates per condition.
-2. The dataset represents a single time point: 6 hours post-infection.
-3. The custom QC workflow provides basic sequencing metrics rather than a complete MultiQC/FastQC assessment.
-4. No adapter trimming was performed in the current workflow.
-5. The PCA shows substantial variation among samples and does not produce perfect separation of the two conditions.
-6. Only a small number of genes meet both the statistical-significance and effect-size thresholds.
-7. The analysis uses a modern GENCODE v49 reference rather than exactly reproducing the original study's reference annotation.
-8. Differential expression should therefore be interpreted as an analysis of this selected subset of samples rather than a definitive characterization of the complete SARS-CoV-2 response.
+1. **Small sample size:** Only six samples were analyzed, with three biological replicates per condition. This limits statistical power and generalizability.
+2. **Single time point:** The dataset represents only 6 hours post-infection and cannot describe how gene-expression patterns change over time.
+3. **Sequencing quality control:** The custom QC workflow provides basic sequencing metrics rather than a comprehensive FastQC/MultiQC assessment. These metrics alone cannot establish the absence of adapter contamination, duplication, rRNA contamination, or other library-specific biases.
+4. **No adapter trimming:** Adapter detection and trimming were not included in the current workflow.
+5. **Sample variation:** PCA showed substantial variation among samples and did not produce clear separation of all samples by condition. This warrants caution when interpreting differential-expression and pathway results.
+6. **Limited significant-gene set:** Only a small number of genes met both the statistical-significance and effect-size thresholds.
+7. **Reference annotation differences:** The analysis uses GENCODE v49 based on GRCh38 rather than exactly reproducing the original study's reference annotation.
+8. **Exploratory interpretation:** The results describe this selected subset of samples, not a definitive characterization of the complete SARS-CoV-2 response.
+9. **No independent validation:** The findings have not been independently validated in an additional dataset or experimental system. Additional biological replicates and independent validation would strengthen the conclusions.
+10. **Pathway-enrichment interpretation:** Hallmark gene sets are broad biological signatures. Enrichment indicates that genes from a set are disproportionately represented toward one end of the ranked list; it does not mean every gene changes in the same direction or that the entire pathway is activated or inhibited.
 
 ## Future improvements
 
 Potential extensions include:
 
-* FastQC/MultiQC-based sequencing QC
-* Adapter detection and trimming
-* Alignment-based quantification for comparison with Salmon
-* Gene ontology and pathway enrichment
-* Ranked gene-set enrichment analysis
-* Integration of additional time points
-* Inclusion of additional biological replicates
-* Comparison against the original study's reference and analysis pipeline
-* More extensive batch and technical-variable assessment
+* Performing comprehensive FastQC/MultiQC analysis.
+* Assessing adapter content and evaluating adapter trimming.
+* Comparing results with an alignment-based quantification workflow.
+* Reproducing the analysis with the original study's reference annotation and analytical pipeline.
+* Incorporating additional biological replicates and time points.
+* Investigating batch effects and other potential technical variables.
+* Validating selected findings using an independent dataset.
+* Exploring leading-edge genes from significant Hallmark gene sets.
 
 ## Project objective
 
@@ -495,10 +490,3 @@ These scripts perform ranked Hallmark gene-set enrichment and produce the pathwa
 * Raw sequencing data, the reference FASTA, Salmon index, and large intermediate quantification files are excluded from version control.
 * Re-running the analysis may require installing the relevant R packages and command-line tools, including Salmon, `tximport`, DESeq2, `fgsea`, and `msigdbr`.
 * The analysis uses three infected and three control samples at 6 hours post-infection. Results should be interpreted cautiously given the small sample size and the limited separation observed in the PCA.
-
-
-### Limitations
-
-The comparison includes three infected and three control samples at six hours post-infection. The small sample size limits statistical power and generalizability. Principal component analysis did not show clear separation of all samples by condition, so the pathway findings should be interpreted cautiously. Independent validation and additional biological replicates would strengthen the conclusions.
-
-The Hallmark gene sets are broad biological signatures. Enrichment indicates that genes from a set are disproportionately represented toward one end of the ranked list; it does not mean every gene in that set changes in the same direction or that the entire pathway is activated or inhibited.
