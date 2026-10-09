@@ -420,6 +420,82 @@ The analysis scripts and selected outputs are available in this repository:
 * `results/pathway_analysis/hallmark_gsea_plot.png` — visualization of significant pathways.
 * `results/pathway_analysis/hallmark_gsea_significant.csv` — significant pathway results.
 * `results/pathway_analysis/hallmark_gsea_interpretation.csv` — pathway directions, statistics, and descriptive interpretations.
+### Running the analysis
+
+The repository contains the analysis scripts and selected results, but not the raw sequencing reads, reference transcript FASTA, or Salmon index. These inputs must be obtained and prepared before the complete pipeline can be rerun. The original FASTQ files are large, so the repository is intended to let readers inspect the scripts and results without downloading all raw data.
+
+Run commands from the root of the cloned repository.
+
+#### 1. Set up the Python environment
+
+Activate the project's virtual environment and install the Python dependencies listed in `requirements.txt`:
+
+```bash
+source .venv/bin/activate
+python -m pip install -r requirements.txt
+```
+
+Create the virtual environment first if you are setting up a fresh clone.
+
+#### 2. Prepare the input data and reference
+
+Place the paired-end FASTQ files in `data/raw/`, using the sample accessions in `data/metadata.csv`. Prepare the Salmon index at `reference/salmon_index/` using the transcript reference described in this README.
+
+The repository does not automatically download or prepare these large inputs. The reference version and the difference from the original study's reference should be considered when reproducing the analysis.
+
+#### 3. Run quality control
+
+```bash
+python scripts/run_qc.py
+python scripts/summarize_qc.py
+python scripts/create_sample_qc_table.py
+python scripts/plot_qc_from_csv.py
+```
+
+The custom Python QC scripts summarize read counts, base quality, and related metrics. They do not replace a comprehensive FastQC/MultiQC assessment.
+
+#### 4. Quantify transcript abundance with Salmon
+
+```bash
+python scripts/run_salmon.py
+python scripts/summarize_salmon.py
+```
+
+The Salmon script uses the six accessions specified in the script and skips a sample when its `quant.sf` output already exists.
+
+#### 5. Import counts and test differential expression
+
+```bash
+Rscript scripts/tximport_analysis.R
+```
+
+This step imports Salmon output with `tximport`, uses DESeq2 to compare infected and control samples, and writes the expression results under `results/expression/`.
+
+#### 6. Generate downstream visualizations
+
+```bash
+Rscript scripts/pca_analysis.R
+Rscript scripts/volcano_plot.R
+Rscript scripts/heatmap_analysis.R
+```
+
+#### 7. Run ranked pathway enrichment
+
+```bash
+Rscript scripts/ranked_pathway_analysis.R
+Rscript scripts/plot_gsea.R
+python scripts/create_gsea_interpretation.py
+```
+
+These scripts perform ranked Hallmark gene-set enrichment and produce the pathway results, visualization, and interpretation table.
+
+#### Reproducibility notes
+
+* Use the software versions recorded in `environment_versions.txt` as a guide; it is not a complete environment lockfile.
+* Raw sequencing data, the reference FASTA, Salmon index, and large intermediate quantification files are excluded from version control.
+* Re-running the analysis may require installing the relevant R packages and command-line tools, including Salmon, `tximport`, DESeq2, `fgsea`, and `msigdbr`.
+* The analysis uses three infected and three control samples at 6 hours post-infection. Results should be interpreted cautiously given the small sample size and the limited separation observed in the PCA.
+
 
 ### Limitations
 
