@@ -528,6 +528,34 @@ The preranked GSEA results identify differences in the distribution of gene-expr
 
 Useful follow-up analyses would include examining leading-edge genes that contribute most to each enrichment signal, reviewing sample-level expression patterns, and checking whether the main findings are consistent in an independent dataset.
 
+### Leading-edge gene analysis
+
+To investigate which genes contributed to the significant Hallmark pathway enrichment results, I extracted the leading-edge genes reported by `fgsea` for each pathway with a Benjamini–Hochberg adjusted p-value below 0.05.
+
+The analysis maps Ensembl gene identifiers to gene symbols using the GENCODE v49 transcript reference and joins the leading-edge genes to the DESeq2 differential-expression statistics. It also summarizes genes that recur across multiple enriched pathways.
+
+**Summary of results**
+
+* 18 significant Hallmark pathways were examined.
+* 899 pathway–gene entries were extracted, representing 707 unique genes.
+* All 899 entries had mapped gene symbols and corresponding DESeq2 statistics.
+* Only two pathway–gene entries had an individual-gene adjusted p-value below 0.05. This illustrates that significant pathway enrichment does not require every contributing gene to be individually significant.
+
+The findings should be interpreted at both the pathway and individual-gene levels. Repeated appearance in several leading-edge sets indicates overlap between pathway gene sets; it does not independently establish a gene's biological importance or causality.
+
+**Outputs**
+
+* `results/pathway_analysis/leading_edge_genes.csv` — pathway-level leading-edge genes with pathway enrichment statistics and individual-gene differential-expression results.
+* `results/pathway_analysis/leading_edge_gene_summary.csv` — genes recurring across pathways, including their pathway counts and associated DESeq2 statistics.
+
+**Run the analysis**
+
+```bash
+python scripts/leading_edge_analysis.py
+```
+
+The script uses the Hallmark GSEA results, the DESeq2 infected-versus-control results, and the GENCODE v49 transcript reference. The reference and large sequencing files are not included in the Git repository and must be prepared separately.
+
 ### Reproducibility and outputs
 
 The analysis scripts and selected outputs are available in this repository:
