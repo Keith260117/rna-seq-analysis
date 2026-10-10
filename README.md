@@ -605,4 +605,8 @@ These outputs connect genes in enriched Hallmark pathways with their differentia
 
 #### Reproducibility notes
 
-Raw sequencing files, the transcript reference, and the Salmon index are not tracked in Git because of their size. Follow the main reproducibility instructions to prepare these inputs. Results may differ from the original study because this project uses GENCODE v49 rather than the original study's reference, and the small sample set limits the strength of biological conclusions.
+- Raw sequencing files, the transcript reference, the Salmon index, and large intermediate quantification files are excluded from version control.
+- `environment_versions.txt` records key software versions for reference; it is not a complete environment lockfile.
+- Re-running the full workflow requires the appropriate Python dependencies, R packages (including `tximport`, DESeq2, `fgsea`, and `msigdbr`), and command-line tools such as Salmon and the SRA Toolkit.
+- The analysis uses three infected and three control samples at 6 hours post-infection. The small sample size and limited separation in the PCA warrant cautious interpretation.
+- The project uses GENCODE v49 rather than the original study's reference, so results may differ from the original analysis.
