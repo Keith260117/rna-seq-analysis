@@ -514,14 +514,19 @@ The strongest enrichment patterns included:
 
 ### Interpretation
 
-The results suggest several patterns worth investigating further:
+The preranked GSEA results identify differences in the distribution of gene-expression statistics between the infected and control samples. Eighteen Hallmark gene sets met the Benjamini–Hochberg-adjusted significance threshold of 0.05. These findings are exploratory and should be interpreted alongside the small sample size and sample-level variability.
 
-1. **Inflammatory signaling:** TNFα signaling via NF-κB was enriched toward the infected condition, consistent with a potential difference in inflammatory-response-associated transcription.
-2. **Cellular energy metabolism:** Oxidative phosphorylation, glycolysis, and fatty-acid metabolism were enriched toward the control condition, suggesting differences in metabolic gene-expression programs.
-3. **Cellular growth and stress responses:** MYC targets, the unfolded protein response, and the reactive oxygen species pathway were also enriched toward the control condition.
-4. **Additional signaling differences:** Hedgehog signaling was enriched toward the infected condition.
+1. **Inflammatory-response-associated transcription:** TNFα signaling via NF-κB was enriched toward the infected condition (NES = 1.541, adjusted p = 0.0087). This is consistent with differences in inflammatory-response-associated gene expression between the groups, but enrichment alone does not establish that the entire pathway was activated.
 
-These findings are exploratory associations from this dataset. They do not establish that infection directly caused the observed pathway patterns or identify the underlying mechanisms.
+2. **Oxidative phosphorylation and metabolic signatures:** Oxidative phosphorylation showed the strongest enrichment in the analysis toward the control condition (NES = -2.666, adjusted p = 7.52 × 10⁻¹⁸). MYC targets V1, glycolysis, and fatty-acid metabolism were also enriched toward controls. Together, these results indicate that genes associated with energy metabolism and cellular growth were distributed differently across the infected-versus-control ranked list. They do not, by themselves, demonstrate a change in metabolic activity.
+
+3. **Additional cellular programs:** Hedgehog signaling was enriched toward the infected condition (NES = 1.727, adjusted p = 0.0224), while the unfolded protein response and reactive oxygen species pathway were enriched toward controls. These signatures identify potential directions for follow-up analysis, rather than proving specific cellular mechanisms.
+
+4. **Statistical and biological context:** The experiment includes three samples per condition at a single time point. The PCA did not show clear separation of all samples by condition, indicating that sample variability should be considered when interpreting the differential-expression and enrichment results. The significant pathways are hypotheses for further investigation, not definitive evidence of causal effects of infection.
+
+**Interpretation of enrichment direction:** Positive normalized enrichment scores (NES) indicate enrichment toward the infected end of the ranked gene list, whereas negative NES values indicate enrichment toward the control end. Enrichment does not mean that every gene in a gene set changes in the same direction, and it should not automatically be described as pathway activation or inhibition.
+
+Useful follow-up analyses would include examining leading-edge genes that contribute most to each enrichment signal, reviewing sample-level expression patterns, and checking whether the main findings are consistent in an independent dataset.
 
 ### Reproducibility and outputs
 
