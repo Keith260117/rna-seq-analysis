@@ -170,8 +170,8 @@ Low-count genes were filtered using:
 
 After filtering:
 
-* **18,619 genes** remained for the DESeq2 dataset
-* **18,609 genes** were included in the final differential-expression results
+* **18,619 genes** passed the low-count filter before DESeq2 results were generated
+* **18,609 genes** were included in the exported differential-expression results after rows with missing adjusted p-values were excluded
 
 The primary statistical comparison was:
 
