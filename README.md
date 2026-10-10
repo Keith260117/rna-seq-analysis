@@ -282,6 +282,7 @@ rna-seq-analysis/
 │   ├── create_sample_qc_table.py
 │   ├── fastq_quality.py
 │   ├── heatmap_analysis.R
+│   ├── leading_edge_analysis.py
 │   ├── map_gene_symbols.py
 │   ├── pca_analysis.R
 │   ├── plot_gsea.R
@@ -301,7 +302,8 @@ rna-seq-analysis/
     │   ├── gene_counts.csv
     │   ├── gene_effective_lengths.csv
     │   ├── sample_metadata.csv
-    │   └── salmon_quantification_summary.csv
+    │   ├── salmon_quantification_summary.csv
+    │   └── tx2gene.csv
     ├── heatmap/
     │   ├── significant_genes_heatmap.png
     │   └── significant_genes_zscore.csv
@@ -310,6 +312,8 @@ rna-seq-analysis/
     │   ├── hallmark_gsea_plot.png
     │   ├── hallmark_gsea_results.csv
     │   ├── hallmark_gsea_significant.csv
+    │   ├── leading_edge_gene_summary.csv
+    │   ├── leading_edge_genes.csv
     │   └── ranked_gene_list.csv
     ├── pca/
     │   ├── PCA_coordinates.csv
