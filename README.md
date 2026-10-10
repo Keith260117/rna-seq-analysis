@@ -556,6 +556,16 @@ python scripts/leading_edge_analysis.py
 
 The script uses the Hallmark GSEA results, the DESeq2 infected-versus-control results, and the GENCODE v49 transcript reference. The reference and large sequencing files are not included in the Git repository and must be prepared separately.
 
+**Examples linking gene-level and pathway-level results**
+
+Two individually significant genes were also present in leading-edge sets from significant Hallmark pathways:
+
+* **BRCA2** (log₂ fold change = −0.482; adjusted p = 0.00256) appeared in `HALLMARK_E2F_TARGETS`, which was enriched toward the control end of the ranked gene list (NES = −1.604).
+* **CCNL1** (log₂ fold change = +0.300; adjusted p = 0.0155) appeared in `HALLMARK_TNFA_SIGNALING_VIA_NFKB`, which was enriched toward the infected end (NES = +1.541).
+
+These examples connect individual differential-expression results with pathway-level enrichment. They do not establish that either gene drives its associated pathway. Given the small sample size, the findings remain exploratory and require validation in an independent dataset.
+
+
 ### Reproducibility and outputs
 
 The analysis scripts and selected outputs are available in this repository:
